@@ -11,7 +11,20 @@ router.get('/home', function(req, res, next) {
 });
 
 router.get('/login', function(req, res){
-  console.log("Yo yo");
   res.render('login');
 });
+
+router.get('/checkout', function(req, res){
+  res.render('checkout');
+});
+
+router.get('/cart', function(req, res){
+  res.render('cart');
+});
+
+router.post('/login', function(req, res){
+  console.log(req.body);
+  res.render('home');
+});
+
 module.exports = router;
