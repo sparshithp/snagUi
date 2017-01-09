@@ -902,12 +902,12 @@ h2.title {
   opacity:;
 }
 
-.single-products:hover .product-overlay {
+/* .single-products:hover .product-overlay {
   display:block;
   height:100%;
 }
 
-
+ */
 .product-overlay .overlay-content {
   bottom: 0;
   position: absolute;
