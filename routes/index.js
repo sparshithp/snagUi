@@ -30,6 +30,27 @@ router.get('/logout', function(req, res){
   res.render('home');
 });
 
+router.post('/addToCart', function(req, res){
+  console.log(req.body);
+  var itemId = req.body.itemId;
+  var qty = req.body.qty;
+  var variantId = req.body.variant;
+  request.post({
+    url:     'http://localhost:8080/api/users/addToCart',
+    method: 'POST',
+    json:    {
+      itemId: itemId,
+      quantity: qty,
+      variantId: variantId,
+      token: req.cookies.auth
+    }
+  }, function(error, response, body){
+    if(response.statusCode == 200){
+      res.redirect('back');
+    }
+  });
+});
+
 router.get('/category/:category', function(req, res){
   var category = req.params.category;
   request.get({
