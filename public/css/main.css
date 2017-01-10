@@ -939,6 +939,18 @@ h2.title {
   color: #fff;
 }
 
+.variant {
+  
+  background:#F5F5ED;
+  border: 1;
+  border-radius: 0;
+  color: #696763;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  margin-bottom: 25px;
+  width: 180px;
+ position: absolute;
+}
 
 .qty {
   
@@ -949,6 +961,7 @@ h2.title {
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
   margin-bottom: 25px;
+  margin-top: 30px;
   
 }
 .add-to-cart {
@@ -959,6 +972,7 @@ h2.title {
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
   margin-bottom: 25px;
+  margin-top: 40px;
 }
 
 .add-to-cart:hover {
