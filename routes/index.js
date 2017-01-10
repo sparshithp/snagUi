@@ -38,7 +38,10 @@ router.get('/category/:category', function(req, res){
   }, function(error, response, body){
     if(response.statusCode == 200){
       console.log(body);
-      res.render('home');
+      var bodyJson = JSON.parse(body);
+      res.render('categoryItems', {
+        items: bodyJson.items
+      });
 
     }
   });
