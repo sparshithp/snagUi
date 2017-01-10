@@ -22,7 +22,21 @@ router.get('/checkout', function(req, res){
 });
 
 router.get('/cart', function(req, res){
-  res.render('cart');
+  request.get({
+    url:     'http://localhost:8080/api/users/viewCart',
+    method: 'GET',
+    headers: { //We can define headers too
+      'x-access-token': req.cookies.auth
+    }
+  }, function(error, response, body){
+    if(response.statusCode == 200){
+      var respJson = JSON.parse(body);
+      console.log(respJson.cart.items);
+      res.render('cart',{
+        cart: respJson.cart
+      });
+    }
+  });
 });
 
 router.get('/logout', function(req, res){
