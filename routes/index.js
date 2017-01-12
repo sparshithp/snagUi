@@ -17,8 +17,40 @@ router.get('/login', function(req, res){
   res.render('login');
 });
 
+router.post('/placeOrder', function(req, res){
+  console.log(req.body);
+  request.post({
+    url:     'http://localhost:8080/api/order/create',
+    method: 'POST',
+    json:    {
+      notes: req.body.notes,
+      paymentMode: req.body.paymentMode,
+      deliverySlot: req.body.deliverySlot,
+      token: req.cookies.auth
+    }
+  }, function(error, response, body){
+    if(response.statusCode == 200){
+      return res.redirect('home');
+    }
+  });
+});
+
 router.get('/checkout', function(req, res){
-  res.render('checkout');
+  request.get({
+    url:     'http://localhost:8080/api/users/viewCart',
+    method: 'GET',
+    headers: { //We can define headers too
+      'x-access-token': req.cookies.auth
+    }
+  }, function(error, response, body){
+    if(response.statusCode == 200){
+      var respJson = JSON.parse(body);
+      console.log(respJson.cart);
+      res.render('checkout',{
+        cart: respJson.cart
+      });
+    }
+  });
 });
 
 router.get('/cart', function(req, res){
@@ -31,7 +63,7 @@ router.get('/cart', function(req, res){
   }, function(error, response, body){
     if(response.statusCode == 200){
       var respJson = JSON.parse(body);
-      console.log(respJson.cart.items);
+      console.log(respJson.cart);
       res.render('cart',{
         cart: respJson.cart
       });
@@ -95,6 +127,9 @@ router.post('/login', function(req, res){
       password: password
     }
   }, function(error, response, body){
+    if(error || !response){
+      return res.render('404');
+    }
     if(response.statusCode == 200){
       var token = body.token;
       res.cookie('auth',token);
