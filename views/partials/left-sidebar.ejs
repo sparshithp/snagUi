@@ -1,7 +1,10 @@
 <div class="left-sidebar">
     <h2>Category</h2>
+    
+    <input type="text" id="catergorySerachInput" class="search-cat-brand" onkeyup="searchCategory()" placeholder=" Search Categories ">
+
     <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-        <div class="panel panel-default">
+       	<div id="Sportswear" class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
@@ -11,7 +14,7 @@
                 </h4>
             </div>
             <div id="sportswear" class="panel-collapse collapse">
-                <div class="panel-body">
+                <div id="Sportswear:child" class="panel-body">
                     <ul>
                         <li><a href="#">Nike </a></li>
                         <li><a href="#">Under Armour </a></li>
@@ -22,17 +25,17 @@
                 </div>
             </div>
         </div>
-        <div class="panel panel-default">
+        <div id="Mens" class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordian" href="#mens">
+                    <a data-toggle="collapse" data-parent="#accordian" href="#men">
                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
                         Mens
                     </a>
                 </h4>
             </div>
-            <div id="mens" class="panel-collapse collapse">
-                <div class="panel-body">
+            <div id="men" class="panel-collapse collapse">
+                <div id="Mens:child" class="panel-body">
                     <ul>
                         <li><a href="#">Fendi</a></li>
                         <li><a href="#">Guess</a></li>
@@ -49,17 +52,17 @@
             </div>
         </div>
 
-        <div class="panel panel-default">
+        <div id="Womens" class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordian" href="#womens">
+                    <a data-toggle="collapse" data-parent="#accordian" href="#women">
                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
                         Womens
                     </a>
                 </h4>
             </div>
-            <div id="womens" class="panel-collapse collapse">
-                <div class="panel-body">
+            <div id="women" class="panel-collapse collapse">
+                <div id="Womens:child" class="panel-body">
                     <ul>
                         <li><a href="#">Fendi</a></li>
                         <li><a href="#">Guess</a></li>
@@ -70,54 +73,82 @@
                 </div>
             </div>
         </div>
-        <div class="panel panel-default">
+        <div id="chocolates" class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title"><a href="/category/chocolates">Chocolates</a></h4>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title"><a href="#">Fashion</a></h4>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title"><a href="#">Households</a></h4>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title"><a href="#">Interiors</a></h4>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title"><a href="#">Clothing</a></h4>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title"><a href="#">Bags</a></h4>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
+       <div id="shoes" class="panel panel-default">
+            <div  class="panel-heading">
                 <h4 class="panel-title"><a href="#">Shoes</a></h4>
             </div>
         </div>
+        <div id="Kitchen" class="panel panel-default">
+            <div  class="panel-heading">
+                <h4 class="panel-title"><a href="#">Kitchen</a></h4>
+            </div>
+        </div>
+        <div id="Shampoo" class="panel panel-default">
+            <div  class="panel-heading">
+                <h4 class="panel-title"><a href="#">Shampoo</a></h4>
+            </div>
+        </div>
+        <div id="Soap" class="panel panel-default">
+            <div  class="panel-heading">
+                <h4 class="panel-title"><a href="#">Soap</a></h4>
+            </div>
+        </div>
+        <div id="Cooking oil" class="panel panel-default">
+            <div  class="panel-heading">
+                <h4 class="panel-title"><a href="#">Cooking oil</a></h4>
+            </div>
+        </div>
+        <div id="shoes5" class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a href="#">Shoes5</a></h4>
+            </div>
+        </div>
+        <div id="shoes6" class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a href="#">Shoes6</a></h4>
+            </div>
+        </div>
+        <div id="shoes7" class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a href="#">Shoes7</a></h4>
+            </div>
+        </div>
+        <div id="shoes8" class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a href="#">Shoes8</a></h4>
+            </div>
+        </div>
+        <div id="shoes9" class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a href="#">Shoes9</a></h4>
+            </div>
+        </div>
+        <div id="shoes10" class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a href="#">Shoes10</a></h4>
+            </div>
+        </div>
+        
     </div><!--/category-products-->
 
     <div class="brands_products"><!--brands_products-->
         <h2>Brands</h2>
+        
+        <input type="text" id="brandSerachInput"  class="search-cat-brand"  onkeyup="searchBrand()" placeholder=" Search Brand ">
         <div class="brands-name">
-            <ul class="nav nav-pills nav-stacked">
-                <li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
-                <li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-                <li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>
-                <li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>
-                <li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>
-                <li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
-                <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
+            <ul id="brandList" class="nav nav-pills nav-stacked">
+                <li><a href="#"> Acne</a></li>
+                <li><a href="#"> Grüne Erde</a></li>
+                <li><a href="#"> Albiro</a></li>
+                <li><a href="#"> Ronhill</a></li>
+                <li><a href="#"> Oddmolly</a></li>
+                <li><a href="#"> Boudestijn</a></li>
+                <li><a href="#"> Rösch creative culture</a></li>
             </ul>
         </div>
     </div><!--/brands_products-->
@@ -125,7 +156,7 @@
     <div class="price-range"><!--price-range-->
         <h2>Price Range</h2>
         <div class="well text-center">
-            <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="10000" data-slider-step="100" data-slider-value="[0,10000]" id="sl2" ><br />
+            <input type="text" s value="" data-slider-min="0" data-slider-max="10000" data-slider-step="100" data-slider-value="[0,10000]" id="sl2" ><br />
             <b class="pull-left">&#8377 0</b> <b class="pull-right">&#8377 10000</b>
         </div>
     </div><!--/price-range-->
@@ -135,3 +166,65 @@
     </div><!--/shipping-->
 
 </div>
+<script>
+function searchCategory() {
+   
+    var input = document.getElementById('catergorySerachInput');
+    var filter = input.value.toUpperCase();
+    var accordian = document.getElementById("accordian");
+    var children = accordian.childNodes;
+    console.log(filter);
+    for (var i = 0; i < children.length; i++) {
+    	var firstChild = children[i];
+    	var id = firstChild.id;
+        if(id){
+	        if (id.toUpperCase().indexOf(filter) > -1) {
+	            firstChild.style.display = "";
+	        } else {
+	            firstChild.style.display = "none";
+	        }
+	       
+	        var childId = id + ":" + "child";
+	        var subCategory = document.getElementById(childId);
+	        console.log(firstChild);
+    
+	        if(subCategory){
+	        	console.log(subCategory);
+    
+	        	var lis = subCategory.getElementsByTagName('li');
+		        for (var j = 0; j < lis.length; j++) {
+		        	
+			        var a = lis[j].getElementsByTagName("a")[0];
+			        console.log(a);
+			        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+			            firstChild.style.display = "";
+			            break;
+			        } 
+	    		}
+	        }
+	        
+        }
+    		
+    }
+}
+    
+function searchBrand() {
+    var input = document.getElementById('brandSerachInput');
+    var filter = input.value.toUpperCase();
+    var ul = document.getElementById("brandList");
+    var li = ul.getElementsByTagName('li');
+	console.log(filter);
+	console.log(li);
+    var a, i;
+    for (i = 0; i < li.length; i++) {
+    	
+        a = li[i].getElementsByTagName("a")[0];
+        console.log(a);
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+</script>
