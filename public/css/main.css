@@ -262,10 +262,10 @@ a#scrollUp i{
   height: 35px;
   outline: medium none;
   padding-left: 10px;
-  width: 155px;
+  width: 455px;
   background-image: url(../images/home/searchicon.png);
   background-repeat: no-repeat;
-  background-position: 130px;
+  background-position: 430px;
 }
 
 
@@ -1459,7 +1459,7 @@ h2.title {
 #form {
   display: block;
   margin-bottom: 185px;
-  margin-top: 185px;
+  margin-top: 5px;
   overflow: hidden;
 }
 

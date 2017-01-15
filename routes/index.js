@@ -10,14 +10,33 @@ router.get('/', function(req, res, next) {
 
 router.get('/home', function(req, res, next) {
   console.log(req.cookies.auth);
-  res.render('home', { title: 'Express' });
+  var category = req.params.category;
+  request.get({
+    url:     'http://localhost:8080/featuredItems/items',
+    method: 'GET'
+  }, function(error, response, body){
+    if(response.statusCode == 200){
+      console.log(body);
+      var bodyJson = JSON.parse(body);
+      res.render('home2', {
+        items: bodyJson.items,
+        token: req.cookies.auth
+      });
+
+    }
+  });
+  
 });
 
 router.get('/login', function(req, res){
-  res.render('login');
+	console.log(req.cookies.auth);
+	var token =req.cookies.auth;
+	res.render('login', {
+		token: token
+      });
 });
 
-router.post('/placeOrder', function(req, res){
+router.post('/placeOrder', isAuthenticated, function(req, res){
   console.log(req.body);
   request.post({
     url:     'http://localhost:8080/api/order/create',
@@ -35,7 +54,7 @@ router.post('/placeOrder', function(req, res){
   });
 });
 
-router.get('/checkout', function(req, res){
+router.get('/checkout', isAuthenticated, function(req, res){
   request.get({
     url:     'http://localhost:8080/api/users/viewCart',
     method: 'GET',
@@ -47,13 +66,14 @@ router.get('/checkout', function(req, res){
       var respJson = JSON.parse(body);
       console.log(respJson.cart);
       res.render('checkout',{
-        cart: respJson.cart
+        cart: respJson.cart,
+        token: req.cookies.auth
       });
     }
   });
 });
 
-router.get('/cart', function(req, res){
+router.get('/cart', isAuthenticated, function(req, res){
   request.get({
     url:     'http://localhost:8080/api/users/viewCart',
     method: 'GET',
@@ -65,7 +85,8 @@ router.get('/cart', function(req, res){
       var respJson = JSON.parse(body);
       console.log(respJson.cart);
       res.render('cart',{
-        cart: respJson.cart
+        cart: respJson.cart,
+        token: req.cookies.auth
       });
     }
   });
@@ -73,7 +94,7 @@ router.get('/cart', function(req, res){
 
 router.get('/logout', function(req, res){
   res.clearCookie("auth");
-  res.render('home');
+  return res.redirect('/login');
 });
 
 router.post('/addToCart', function(req, res){
@@ -107,7 +128,8 @@ router.get('/category/:category', function(req, res){
       console.log(body);
       var bodyJson = JSON.parse(body);
       res.render('categoryItems', {
-        items: bodyJson.items
+        items: bodyJson.items,
+        token: req.cookies.auth
       });
 
     }
@@ -133,7 +155,18 @@ router.post('/login', function(req, res){
     if(response.statusCode == 200){
       var token = body.token;
       res.cookie('auth',token);
-      res.render('home');
+      request.get({
+    	    url:     'http://localhost:8080/featuredItems/items',
+    	    method: 'GET'
+    	  }, function(error2, response2, body2){
+	    	    if(response2.statusCode == 200){
+	    	      var bodyJson = JSON.parse(body2);
+	    	      res.render('home2', {
+	    	        items: bodyJson.items,
+	    	        token: token
+	    	      });
+	    	    }
+    	  });
     }
   });
 });
