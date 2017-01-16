@@ -657,6 +657,38 @@ ul.sub-menu {
   border: 1px solid #F7F7F0;
 }
 
+.user-info-container {
+  border: 2px solid #F7F7F0;
+  margin-top: 30px;
+  margin-left : 35px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  padding-left: 40px;
+  
+}
+
+.paddingBetweenCols td
+{
+    padding: 15px 40px 15px 40px;
+}
+.user-info-container h2{
+	color: #696763;
+    font-family: 'Roboto', sans-serif;
+    font-size: 26px;
+    font-weight: 300;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eaeaec
+}
+.user-table-content {
+	
+	color: #696763;
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    margin-top: 20px;
+    
+}
+
 .category-products {
   border: 1px solid #F7F7F0;
   margin-bottom: 35px;

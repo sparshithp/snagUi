@@ -9,24 +9,46 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/home', function(req, res, next) {
-  console.log(req.cookies.auth);
-  var category = req.params.category;
-  request.get({
-    url:     'http://localhost:8080/featuredItems/items',
-    method: 'GET'
-  }, function(error, response, body){
-    if(response.statusCode == 200){
-      console.log(body);
-      var bodyJson = JSON.parse(body);
-      res.render('home2', {
-        items: bodyJson.items,
-        token: req.cookies.auth
-      });
+	  console.log(req.cookies.auth);
+	  var category = req.params.category;
+	  request.get({
+	    url:     'http://localhost:8080/featuredItems/items',
+	    method: 'GET'
+	  }, function(error, response, body){
+	    if(response.statusCode == 200){
+	      console.log(body);
+	      var bodyJson = JSON.parse(body);
+	      res.render('home2', {
+	        items: bodyJson.items,
+	        token: req.cookies.auth
+	      });
 
-    }
-  });
-  
-});
+	    }
+	  });
+	  
+	});
+
+router.get('/profile', function(req, res, next) {
+
+	  request.get({
+	    url:     'http://localhost:8080/api/users/profile',
+	    method: 'GET',
+	    headers: { 
+	        'x-access-token': req.cookies.auth
+	      }
+	  }, function(error, response, body){
+	    if(response.statusCode == 200){
+	      var bodyJson = JSON.parse(body);
+	      console.log(bodyJson.user);
+	      res.render('profile', {
+	        user: bodyJson.user,
+	        token: req.cookies.auth
+	      });
+
+	    }
+	  });
+	  
+	});
 
 router.get('/login', function(req, res){
 	console.log(req.cookies.auth);
