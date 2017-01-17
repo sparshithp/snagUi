@@ -52,7 +52,7 @@
 			</div>
 		           
 		   	<h2></h2>
-		    <div class="col-sm-8 col-sm-offset-1 user-info-container">
+		    <div id="profile-info-div" class="col-sm-8 col-sm-offset-1 user-info-container">
 		        <h2> Primary Information</h2>
 		        <div class="user-table-content">
 		            <table class="paddingBetweenCols">
@@ -62,7 +62,7 @@
 		                		<td ><%= user.name %> </td>
 		                	</tr>
 		                	<tr>
-		                		<td> Phone No. </td>
+		                		<td> Phone Number </td>
 		                		<td ><%= user.phone %> </td>
 		                	</tr>
 		                	<tr>
@@ -88,8 +88,30 @@
 		                </tbody>
 		        	</table>
 		        </div>
-		    </div>
-			            
+		        
+		    		<button type="button" class="btn btn-default edit-profile-btn" onclick="editProfileClick()">Edit</button>
+				
+    		</div>
+    		
+    		
+    		<div id="profile-edit-div" class="col-sm-8 col-sm-offset-1 user-info-container edit-form">
+		        <h2> Primary Information</h2>
+		        <div class="edit-profile-form">
+		            <form method="post" action="/editProfile">
+		        
+		        		<input type="text" name="name" placeholder="Email Id    <%= user.name %>"/>
+                        <input type="number" name="phone"  placeholder="Phone No. <%= user.phone %>"/>
+                        <input type="text" name="streetAddress" placeholder="Door No and Street Address <%= user.streetAddress %>"/>
+                        <input type="text" name="area" placeholder="Area  <%= user.area %>"/>
+                        <input type="text" name="city" placeholder="City <%= user.city %>"/>
+                        <input type="number" name="zip" placeholder="zipcode <%= user.zip %>"/>
+                        
+		    		<button type="button" class="btn btn-default edit-profile-btn" onclick="cancelEditProfileClick()">Cancel</button>
+		    		<button type="submit" class="btn btn-default edit-profile-btn" >Update</button>
+				</form>
+		        </div>
+    		</div>
+    		
 		</div>
 	</div>
 </section>
@@ -99,6 +121,7 @@
 
 
 
+<script src="js/profile.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/price-range.js"></script>
 <script src="js/jquery.scrollUp.min.js"></script>

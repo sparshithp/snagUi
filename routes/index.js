@@ -50,6 +50,29 @@ router.get('/profile', function(req, res, next) {
 	  
 	});
 
+router.post('/editProfile', function(req, res, next) {
+
+	  request.post({
+	    url:     'http://localhost:8080/api/users/editProfile',
+	    method: 'POST',
+	    json:    {
+	        name: req.body.name,
+	        phone: req.body.phone,
+	        city: req.body.city,
+	        area: req.body.area,
+	        zip: req.body.zip,
+	        streetAddress: req.body.streetAddress,
+	        token: req.cookies.auth
+	      }
+	  }, function(error, response, body){
+	    if(response.statusCode == 200){
+	    	 return res.redirect('profile');
+
+	    }
+	  });
+	  
+});
+
 router.get('/login', function(req, res){
 	console.log(req.cookies.auth);
 	var token =req.cookies.auth;

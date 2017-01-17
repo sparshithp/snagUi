@@ -689,6 +689,37 @@ ul.sub-menu {
     
 }
 
+.edit-form {
+	display: none;
+}
+.edit-profile-form form input {
+  background: #F0F0E9;
+  border: medium none;
+  color: #696763;
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  height: 40px;
+  margin-bottom: 10px;
+  outline: medium none;
+  padding-left: 10px;
+  width: 70%;
+}
+
+.edit-profile-btn {
+  background: #FE980F;
+  border: 0 none;
+  border-radius: 0;
+  color: #FFFFFF;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  margin-left : 35px;
+  margin-top: 23px;
+  width: 200px;
+}
+
 .category-products {
   border: 1px solid #F7F7F0;
   margin-bottom: 35px;
