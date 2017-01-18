@@ -212,9 +212,55 @@ router.post('/login', function(req, res){
 	    	      });
 	    	    }
     	  });
+    }else {
+    	res.redirect('/login');
     }
   });
 });
+
+router.post('/signUp', function(req, res){
+	  console.log(req.body);
+	  request.post({
+	    url:     'http://localhost:8080/signUp',
+	    method: 'POST',
+	    json:    {
+	      name : req.body.name,
+	      email: req.body.email,
+	      password: req.body.password,
+	      phone: req.body.phone,
+	      streetAddress: req.body.streetAddress,
+	      area: req.body.area,
+	      city: req.body.city,
+	      zip: req.body.zip
+	      
+	    }
+	  }, function(error, response, body){
+	    if(error || !response){
+	      return res.render('404');
+	    }
+	    if(response.statusCode == 200){
+	      var token = body.token;
+	      res.cookie('auth',token);
+	      request.get({
+	    	    url:     'http://localhost:8080/featuredItems/items',
+	    	    method: 'GET'
+	    	  }, function(error2, response2, body2){
+		    	    if(response2.statusCode == 200){
+		    	      var bodyJson = JSON.parse(body2);
+		    	      res.render('home2', {
+		    	        items: bodyJson.items,
+		    	        token: token
+		    	      });
+		    	    }
+	    	  });
+	    }else if(response.statusCode == 400){
+	    	return res.render('error', {
+	    		message : body.message,
+	    		error : "Sign Up Error"
+	    	});
+	    }
+	  });
+	});
 
 function isAuthenticated(req, res, next) {
 

@@ -25,6 +25,8 @@
 </head><!--/head-->
 
 <body>
+<script src="js/signUp.js"></script>
+
 <% include partials/header %>
 
 <section id="form"><!--form-->
@@ -47,19 +49,39 @@
             <div class="col-sm-1">
                 <h2 class="or">OR</h2>
             </div>
+            
+            
+            <script type="text/javascript">
+
+function submitHandler()
+{
+  var form = document.getElementById("signUpForm");
+	alert(form.name);
+	alert(form.name.value);
+  return false;
+}
+
+window.onload=function(){document.getElementById("signUpForm").attachEvent("onsubmit", submitHandler);}
+            
+   </script>
             <div class="col-sm-4">
                 <div class="signup-form"><!--sign up form-->
                     <h2>New User Signup!</h2>
-                    <form action="#">
-                        <input type="text" placeholder="Name"/>
-                        <input type="email" placeholder="Email Address"/>
-                        <input type="password" placeholder="Password"/>
-                        <input type="password" placeholder="Confirm Password"/>
-                        <input type="number" placeholder="Phone No."/>
-                        <input type="text" placeholder="Door No and Street Address"/>
-                        <input type="text" placeholder="Area"/>
-                        <input type="text" placeholder="City"/>
-                        <input type="number" placeholder="zipcode"/>
+                    <form method="post" id="signUpForm" onsubmit="return checkSignUpForm()" action="/signUp">
+                        <input type="text" name="name", placeholder="Name"/>
+                        <input type="email" name="email", placeholder="Email Address"/>
+                        <input type="password" name="password", placeholder="Password"/>
+                        <input type="password" name="confirmPassword", placeholder="Confirm Password"/>
+                        <input type="number" name="phone", placeholder="Phone No."/>
+                        <input type="text" name="streetAddress", placeholder="Door No and Street Address"/>
+                        <select name="area" style="margin-bottom:10px; height:35px">
+						  <option value="hegdenagar">RK Hegde Nagar</option>
+						</select>
+                        <select name="city" style="margin-bottom:10px; height:35px">
+						  <option value="bangalore">Bangalore</option>
+						</select>
+                        <input type="number" name="zip", placeholder="zipcode"/>
+                        
                         <button type="submit" class="btn btn-default">Signup</button>
                     </form>
                 </div><!--/sign up form-->
