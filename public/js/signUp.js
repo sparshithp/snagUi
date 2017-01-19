@@ -67,5 +67,4 @@ var form = document.getElementById("signUpForm");
 	
 }
 
-window.onload=function(){document.getElementById("signUpForm").attachEvent("onsubmit", checkSignUpForm);}
 

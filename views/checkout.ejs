@@ -41,21 +41,21 @@
                     </td>
                     <td class="cart_quantity">
                         <div class="cart_quantity_button">
-                            <a class="cart_quantity_up" href=""> + </a>
+                            <a class="cart_quantity_up"  onclick="cartTouched()"> + </a>
                             <input class="cart_quantity_input" type="text" name="quantity"
                                    value="<%= cart.items[i].quantity %>" autocomplete="off" size="2">
-                            <a class="cart_quantity_down" href=""> - </a>
+                            <a class="cart_quantity_down"  onclick="cartTouched()"> - </a>
                         </div>
                     </td>
                     <td class="cart_total">
                         <p class="cart_total_price">&#8377 <%= cart.items[i].quantity * cart.items[i].price %></p>
                     </td>
                     <td class="cart_delete">
-                        <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                        <a class="cart_quantity_delete"  onclick="cartTouched()" ><i class="fa fa-times"></i></a>
                     </td>
                 </tr>
                 <% } %>
-                <form method="post" action="/placeOrder">
+                <form id="cartForm" onsubmit="return cartFormCheck()" >
                 <tr>
                     <td colspan="4">
                         <div class="shopper-informations">
@@ -93,21 +93,24 @@
                             <tr>
                                 <td>Payment Mode</td>
                                 <td style="padding-top: 10px">
-                                        <input type="radio" name="paymentMode" value="Paytm" required/>   Paytm<br />
+                                        <input type="radio" name="paymentMode" value="Paytm" />   Paytm<br />
                                         <input type="radio" name="paymentMode" value="Cash" />   Cash<br />
                                 </td>
                             </tr>
                             <tr>
                                 <td>Delivery slot</td>
                                 <td style="padding-top: 10px">
-                                    <input type="radio" name="deliverySlot" value="Morning" required/>   Morning<br />
+                                    <input type="radio" name="deliverySlot" value="Morning" />   Morning<br />
                                     <input type="radio" name="deliverySlot" value="Afternoon" />   Afternoon<br />
                                     <input type="radio" name="deliverySlot" value="Evening" />   Evening<br />
+                                    <input type="radio" name="deliverySlot" value="AnyTime" />   Any Time<br />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button type="submit" class="btn btn-primary" href="/placeOrder">Place Order</button>
+                                    <button type="submit" formaction="/updateCart" formmethod="post" id="cUpdate" name="cUpdate" class="btn btn-primary cUpdate-btn" >Confirm Updates</button>
+                                    <button type="submit" formaction="/checkout" formmethod="get" id="resetCart" name="resetCart" class="btn btn-primary cUpdate-btn" >Reset Cart</button>
+                                    <button type="submit" formaction="/placeOrder" formmethod="post" id="pOrder" name="pOrder" class="btn btn-primary" >Place Order</button>
                                 </td>
                             </tr>
                         </table>
@@ -125,6 +128,7 @@
 <% include partials/footer %>
 
 
+<script src="js/cartOperation.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.scrollUp.min.js"></script>
