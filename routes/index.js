@@ -255,8 +255,10 @@ router.post('/signUp', function(req, res){
 	    	  });
 	    }else if(response.statusCode == 400){
 	    	return res.render('error', {
-	    		message : body.message,
-	    		error : "Sign Up Error"
+	    		messageHeading : body.messageHeading,
+	    		message2 : body.message2,
+	    		error : "Sign Up Error !!",
+	    		token : null
 	    	});
 	    }
 	  });
