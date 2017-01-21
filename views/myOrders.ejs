@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Profile</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/price-range.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+
+<body>
+<% include partials/header %>
+
+<section id="form"><!--form-->
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-2">
+				<div class="left-sidebar">
+				
+				    <h2>My Account</h2>
+				    <div class="panel-group category-products" id="profileAccordian">
+				
+				        <div id="userInfo" class="panel panel-default">
+				            <div class="panel-heading">
+				                <h4 class="panel-title"><a href="/profile">My Profile</a></h4>
+				            </div>
+				        </div>
+				        <div id="userOrders" class="panel panel-default">
+				            <div class="panel-heading">
+				                <h4 class="panel-title"><a href="/profile">My Orders</a></h4>
+				            </div>
+				        </div>
+				        
+				    </div>
+				</div>
+			</div>
+		   
+			   	<h2></h2>
+		   <div id="profile-info-div-main" class="col-sm-9 col-sm-offset-1 my-order-container-main">
+				             
+			   <% for(var i = 0; i < orders.length; i++) { %>
+			   
+	                     <div id="profile-info-div" class="col-sm-10 col-sm-offset-1 my-order-container">
+					        <div class="my-order-status" >
+					        	 <%=orders[i].status %>
+					        </div>
+					        <div class="my-order-order-titles">
+					        	 ORDER ID : <%=orders[i]._id %>
+					        </div>
+					        <div class="my-order-order-titles" >
+					        	 Placed on : <%=orders[i].date.substring(0, 10) %>  /   Delivered on : <%=orders[i].date.substring(0, 10) %>
+					        </div>
+					        
+					        <div class="my-order-order-titles-with-border">
+					        	 Total Cost : <%=orders[i].cost %> Rs  /  Money saved : <%=orders[i].moneySaved %> Rs
+					        </div>
+					        
+					        <div class="order-items-div" >
+					        
+					            <ul >
+					            <% for(var j = 0; j < orders[i].items.length; j++) { %>
+			   
+				                	<li class="order-items" > 
+				                		
+				                		<%=orders[i].items[j].itemName %> , size : <%=orders[i].items[j].size %> , Qty : <%=orders[i].items[j].quantity %> , MRP : <%=orders[i].items[j].mrp %> , SalePrice : <%=orders[i].items[j].salePrice %>       
+				                		
+				                	</li>
+				                	
+				                <% } %>
+			            		</ul>
+					        </div>
+					    		
+			    		</div>
+	    		<% } %>
+    		</div>
+		</div>
+	</div>
+</section>
+
+
+<% include partials/footer %>
+
+
+
+<script src="js/profile.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/price-range.js"></script>
+<script src="js/jquery.scrollUp.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.prettyPhoto.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

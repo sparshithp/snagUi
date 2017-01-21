@@ -20,7 +20,8 @@ router.get('/home', function(req, res, next) {
 	      var bodyJson = JSON.parse(body);
 	      res.render('home2', {
 	        items: bodyJson.items,
-	        token: req.cookies.auth
+	        token: req.cookies.auth,
+	        welcomeTip: req.cookies.welcomeTip
 	      });
 
 	    }
@@ -42,7 +43,8 @@ router.get('/profile', function(req, res, next) {
 	      console.log(bodyJson.user);
 	      res.render('profile', {
 	        user: bodyJson.user,
-	        token: req.cookies.auth
+	        token: req.cookies.auth,
+	        welcomeTip: req.cookies.welcomeTip
 	      });
 
 	    }
@@ -77,7 +79,8 @@ router.get('/login', function(req, res){
 	console.log(req.cookies.auth);
 	var token =req.cookies.auth;
 	res.render('login', {
-		token: token
+		token: token,
+        welcomeTip: req.cookies.welcomeTip
       });
 });
 
@@ -99,6 +102,25 @@ router.post('/placeOrder', isAuthenticated, function(req, res){
   });
 });
 
+router.post('/updateCart', isAuthenticated, function(req, res){
+	  console.log(req.body);
+	  
+	  request.post({
+	    url:     'http://localhost:8080/api/users/updateCart',
+	    method: 'POST',
+	    json:    {
+	      notes: req.body.notes,
+	      paymentMode: req.body.paymentMode,
+	      deliverySlot: req.body.deliverySlot,
+	      token: req.cookies.auth
+	    }
+	  }, function(error, response, body){
+	    if(response.statusCode == 200){
+	      return res.redirect('home');
+	    }
+	  });
+});
+
 router.get('/checkout', isAuthenticated, function(req, res){
   request.get({
     url:     'http://localhost:8080/api/users/viewCart',
@@ -112,7 +134,8 @@ router.get('/checkout', isAuthenticated, function(req, res){
       console.log(respJson.cart);
       res.render('checkout',{
         cart: respJson.cart,
-        token: req.cookies.auth
+        token: req.cookies.auth,
+        welcomeTip: req.cookies.welcomeTip
       });
     }
   });
@@ -131,14 +154,48 @@ router.get('/cart', isAuthenticated, function(req, res){
       console.log(respJson.cart);
       res.render('cart',{
         cart: respJson.cart,
-        token: req.cookies.auth
+        token: req.cookies.auth,
+        welcomeTip: req.cookies.welcomeTip
       });
     }
   });
 });
 
+router.get('/myOrders', isAuthenticated, function(req, res){
+	  request.get({
+	    url:     'http://localhost:8080/api/order/listForUser',
+	    method: 'GET',
+	    headers: { //We can define headers too
+	      'x-access-token': req.cookies.auth
+	    }
+	  }, function(error, response, body){
+	    if(response.statusCode == 200){
+	      var respJson = JSON.parse(body);
+	      
+//	      var orderDate = respJson.date;
+//	      var deliveryDate = respJson.deliveryDate;
+//	      var totalCost  = respJson.cost;
+//	      var moneySaved = respJson.moneySaved;
+//	      var items = respJson.items;
+//	      if(items.length > 0){
+//	    	  for(var i=0; i<items.length; i++){
+//	    		  
+//	    	  }
+//	      }
+	      console.log(respJson.orders);
+	      res.render('myOrders',{
+	    	orders: respJson.orders,
+	    	moneySaved: respJson.moneySaved,
+	        token: req.cookies.auth,
+	        welcomeTip: req.cookies.welcomeTip
+	      });
+	    }
+	  });
+});
+
 router.get('/logout', function(req, res){
   res.clearCookie("auth");
+  res.clearCookie("welocmeTip");
   return res.redirect('/login');
 });
 
@@ -154,7 +211,8 @@ router.post('/addToCart', function(req, res){
       itemId: itemId,
       quantity: qty,
       variantId: variantId,
-      token: req.cookies.auth
+      token: req.cookies.auth,
+      welcomeTip: req.cookies.welcomeTip
     }
   }, function(error, response, body){
     if(response.statusCode == 200){
@@ -163,18 +221,23 @@ router.post('/addToCart', function(req, res){
   });
 });
 
-router.get('/category/:category', function(req, res){
+router.get('/category/:category/:page', function(req, res){
   var category = req.params.category;
+  var page = req.params.page;
+  console.log(page);
   request.get({
-    url:     'http://localhost:8080/items/listByCategory/chocolates',
+    url:     'http://localhost:8080/items/listByCategory/chocolates/'+page,
     method: 'GET'
   }, function(error, response, body){
     if(response.statusCode == 200){
-      console.log(body);
       var bodyJson = JSON.parse(body);
+      console.log(bodyJson);
       res.render('categoryItems', {
         items: bodyJson.items,
-        token: req.cookies.auth
+        token: req.cookies.auth,
+        welcomeTip: req.cookies.welcomeTip,
+        category: category,
+        totalItems: bodyJson.totalItems
       });
 
     }
@@ -199,7 +262,10 @@ router.post('/login', function(req, res){
     }
     if(response.statusCode == 200){
       var token = body.token;
+      var welcomeTip = body.welcomeTip;
       res.cookie('auth',token);
+      res.cookie('welcomeTip', welcomeTip);
+      console.log(welcomeTip);
       request.get({
     	    url:     'http://localhost:8080/featuredItems/items',
     	    method: 'GET'
@@ -208,7 +274,8 @@ router.post('/login', function(req, res){
 	    	      var bodyJson = JSON.parse(body2);
 	    	      res.render('home2', {
 	    	        items: bodyJson.items,
-	    	        token: token
+	    	        token: token,
+	    	        welcomeTip: welcomeTip
 	    	      });
 	    	    }
     	  });
@@ -240,7 +307,9 @@ router.post('/signUp', function(req, res){
 	    }
 	    if(response.statusCode == 200){
 	      var token = body.token;
+	      var welcomeTip = body.welcomeTip;
 	      res.cookie('auth',token);
+	      res.cookie('welcomeTip', body.welcomeTip);
 	      request.get({
 	    	    url:     'http://localhost:8080/featuredItems/items',
 	    	    method: 'GET'
@@ -249,7 +318,8 @@ router.post('/signUp', function(req, res){
 		    	      var bodyJson = JSON.parse(body2);
 		    	      res.render('home2', {
 		    	        items: bodyJson.items,
-		    	        token: token
+		    	        token: token,
+		    	        welcomeTip: welcomeTip
 		    	      });
 		    	    }
 	    	  });
