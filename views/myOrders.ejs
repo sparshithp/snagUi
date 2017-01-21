@@ -56,7 +56,9 @@
 				       
 				  <% if(orders.length == 0){ %>
 				             
-				      <h2> No Orders yet </h2>
+				     <div class="error-message"> 
+						<h3>You do not have any orders </h3>
+					</div>
 				  <% } else { %>
 				  
 			   <% for(var i = 0; i < orders.length; i++) { %>

@@ -196,22 +196,13 @@ router.get('/myOrders', isAuthenticated, function(req, res){
 	    if(response.statusCode == 200){
 	      var respJson = JSON.parse(body);
 	      console.log(respJson.orders);
-	      if(respJson.orders.length == 0){
-	    	  res.render('myOrders',{
-	  	    	orders: respJson.orders,
-	  	    	moneySaved: respJson.moneySaved,
-	  	        token: req.cookies.auth,
-	  	        welcomeTip: req.cookies.welcomeTip
-	  	      });
-	      }else{
 	    	  res.render('myOrders',{
 	    		  orders: respJson.orders,
 	    		  moneySaved: respJson.moneySaved,
 	    		  token: req.cookies.auth,
 	    		  welcomeTip: req.cookies.welcomeTip
 	    	  });
-	      }
-	    }
+	    	}
 	  });
 });
 
