@@ -53,7 +53,12 @@
 		   
 			   	<h2></h2>
 		   <div id="profile-info-div-main" class="col-sm-9 col-sm-offset-1 my-order-container-main">
+				       
+				  <% if(orders.length == 0){ %>
 				             
+				      <h2> No Orders yet </h2>
+				  <% } else { %>
+				  
 			   <% for(var i = 0; i < orders.length; i++) { %>
 			   
 	                     <div id="profile-info-div" class="col-sm-10 col-sm-offset-1 my-order-container">
@@ -87,6 +92,7 @@
 					        </div>
 					    		
 			    		</div>
+	    		<% } %>
 	    		<% } %>
     		</div>
 		</div>

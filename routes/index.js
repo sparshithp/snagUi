@@ -85,7 +85,6 @@ router.get('/login', function(req, res){
 });
 
 router.post('/placeOrder', isAuthenticated, function(req, res){
-  console.log(req.body);
   request.post({
     url:     'http://localhost:8080/api/order/create',
     method: 'POST',
@@ -102,21 +101,64 @@ router.post('/placeOrder', isAuthenticated, function(req, res){
   });
 });
 
-router.post('/updateCart', isAuthenticated, function(req, res){
-	  console.log(req.body);
-	  
+router.post('/addQtyUpdate', isAuthenticated, function(req, res){
+	var quantity = parseInt(req.body.quantity) + 1;
 	  request.post({
 	    url:     'http://localhost:8080/api/users/updateCart',
 	    method: 'POST',
 	    json:    {
-	      notes: req.body.notes,
-	      paymentMode: req.body.paymentMode,
-	      deliverySlot: req.body.deliverySlot,
+	      itemId: req.body.itemId,
+	      variantId: req.body.variantId,
+	      quantity: quantity,
+	      action: "add",
 	      token: req.cookies.auth
 	    }
 	  }, function(error, response, body){
 	    if(response.statusCode == 200){
-	      return res.redirect('home');
+	      return res.redirect('checkout');
+	    }
+	  });
+});
+
+router.post('/minusQtyUpdate', isAuthenticated, function(req, res){
+	if(parseInt(req.body.quantity) > 1){
+		var quantity = parseInt(req.body.quantity) - 1;
+	}else{
+		var quantity = parseInt(req.body.quantity) ;
+	}
+	  request.post({
+	    url:     'http://localhost:8080/api/users/updateCart',
+	    method: 'POST',
+	    json:    {
+	      itemId: req.body.itemId,
+	      variantId: req.body.variantId,
+	      quantity: quantity,
+	      action: "add",
+	      token: req.cookies.auth
+	    }
+	  }, function(error, response, body){
+	    if(response.statusCode == 200){
+	      return res.redirect('/checkout');
+	    }
+	  });
+});
+
+router.post('/removeItemUpdate', isAuthenticated, function(req, res){
+	
+	var quantity = parseInt(req.body.quantity) ;
+	  request.post({
+	    url:     'http://localhost:8080/api/users/updateCart',
+	    method: 'POST',
+	    json:    {
+	      itemId: req.body.itemId,
+	      variantId: req.body.variantId,
+	      quantity: quantity,
+	      action: "remove",
+	      token: req.cookies.auth
+	    }
+	  }, function(error, response, body){
+	    if(response.statusCode == 200){
+	      return res.redirect('/checkout');
 	    }
 	  });
 });
@@ -141,25 +183,7 @@ router.get('/checkout', isAuthenticated, function(req, res){
   });
 });
 
-router.get('/cart', isAuthenticated, function(req, res){
-  request.get({
-    url:     'http://localhost:8080/api/users/viewCart',
-    method: 'GET',
-    headers: { //We can define headers too
-      'x-access-token': req.cookies.auth
-    }
-  }, function(error, response, body){
-    if(response.statusCode == 200){
-      var respJson = JSON.parse(body);
-      console.log(respJson.cart);
-      res.render('cart',{
-        cart: respJson.cart,
-        token: req.cookies.auth,
-        welcomeTip: req.cookies.welcomeTip
-      });
-    }
-  });
-});
+
 
 router.get('/myOrders', isAuthenticated, function(req, res){
 	  request.get({
@@ -171,24 +195,22 @@ router.get('/myOrders', isAuthenticated, function(req, res){
 	  }, function(error, response, body){
 	    if(response.statusCode == 200){
 	      var respJson = JSON.parse(body);
-	      
-//	      var orderDate = respJson.date;
-//	      var deliveryDate = respJson.deliveryDate;
-//	      var totalCost  = respJson.cost;
-//	      var moneySaved = respJson.moneySaved;
-//	      var items = respJson.items;
-//	      if(items.length > 0){
-//	    	  for(var i=0; i<items.length; i++){
-//	    		  
-//	    	  }
-//	      }
 	      console.log(respJson.orders);
-	      res.render('myOrders',{
-	    	orders: respJson.orders,
-	    	moneySaved: respJson.moneySaved,
-	        token: req.cookies.auth,
-	        welcomeTip: req.cookies.welcomeTip
-	      });
+	      if(respJson.orders.length == 0){
+	    	  res.render('myOrders',{
+	  	    	orders: respJson.orders,
+	  	    	moneySaved: respJson.moneySaved,
+	  	        token: req.cookies.auth,
+	  	        welcomeTip: req.cookies.welcomeTip
+	  	      });
+	      }else{
+	    	  res.render('myOrders',{
+	    		  orders: respJson.orders,
+	    		  moneySaved: respJson.moneySaved,
+	    		  token: req.cookies.auth,
+	    		  welcomeTip: req.cookies.welcomeTip
+	    	  });
+	      }
 	    }
 	  });
 });

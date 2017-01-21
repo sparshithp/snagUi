@@ -136,23 +136,6 @@
         
     </div><!--/category-products-->
 
-    <div class="brands_products"><!--brands_products-->
-        <h2>Brands</h2>
-        
-        <input type="text" id="brandSerachInput"  class="search-cat-brand"  onkeyup="searchBrand()" placeholder=" Search Brand ">
-        <div class="brands-name">
-            <ul id="brandList" class="nav nav-pills nav-stacked">
-                <li><a href="#"> Acne</a></li>
-                <li><a href="#"> Grüne Erde</a></li>
-                <li><a href="#"> Albiro</a></li>
-                <li><a href="#"> Ronhill</a></li>
-                <li><a href="#"> Oddmolly</a></li>
-                <li><a href="#"> Boudestijn</a></li>
-                <li><a href="#"> Rösch creative culture</a></li>
-            </ul>
-        </div>
-    </div><!--/brands_products-->
-
  <!--   <div class="price-range">
         <h2>Price Range</h2>
         <div class="well text-center">
@@ -167,65 +150,3 @@
 -->
 
 </div>
-<script>
-function searchCategory() {
-   
-    var input = document.getElementById('catergorySerachInput');
-    var filter = input.value.toUpperCase();
-    var accordian = document.getElementById("accordian");
-    var children = accordian.childNodes;
-    console.log(filter);
-    for (var i = 0; i < children.length; i++) {
-    	var firstChild = children[i];
-    	var id = firstChild.id;
-        if(id){
-	        if (id.toUpperCase().indexOf(filter) > -1) {
-	            firstChild.style.display = "";
-	        } else {
-	            firstChild.style.display = "none";
-	        }
-	       
-	        var childId = id + ":" + "child";
-	        var subCategory = document.getElementById(childId);
-	        console.log(firstChild);
-    
-	        if(subCategory){
-	        	console.log(subCategory);
-    
-	        	var lis = subCategory.getElementsByTagName('li');
-		        for (var j = 0; j < lis.length; j++) {
-		        	
-			        var a = lis[j].getElementsByTagName("a")[0];
-			        console.log(a);
-			        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-			            firstChild.style.display = "";
-			            break;
-			        } 
-	    		}
-	        }
-	        
-        }
-    		
-    }
-}
-    
-function searchBrand() {
-    var input = document.getElementById('brandSerachInput');
-    var filter = input.value.toUpperCase();
-    var ul = document.getElementById("brandList");
-    var li = ul.getElementsByTagName('li');
-	console.log(filter);
-	console.log(li);
-    var a, i;
-    for (i = 0; i < li.length; i++) {
-    	
-        a = li[i].getElementsByTagName("a")[0];
-        console.log(a);
-        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
-    }
-}
-</script>

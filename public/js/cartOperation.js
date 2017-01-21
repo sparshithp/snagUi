@@ -1,4 +1,19 @@
 
+function showPressEnter(inp) {
+	
+	
+	var d = document.getElementById(inp.parentElement.id);
+	var children = d.childNodes;
+	for (var i = 0; i < children.length; i++) {
+    	var firstChild = children[i];
+    	var id = firstChild.id;
+    	if(id == "press"){
+    		var pressP = document.getElementById(id);
+    		$("div#pressP").removeClass("press-enter-disp");
+    		pressP.style.display = "block";
+    	}
+	}
+}
 
 function cartTouched() {
 

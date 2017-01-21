@@ -9,10 +9,23 @@
             </ol>
         </div><!--/breadcrums-->
 
-        <div class="review-payment">
+<%	if(cart.items.length == 0) { %>
+
+<div >
+	
+	
+	<div class="error-message"> 
+		<h3>There are no Items in the cart </h3>
+	</div>
+</div>
+	
+<%
+} else {
+%>
+		<div class="review-payment">
             <h2>Review & Payment</h2>
         </div>
-
+	
         <div class="table-responsive cart_info">
             <table class="table table-condensed">
                 <thead>
@@ -27,35 +40,42 @@
                 </thead>
                 <tbody>
                 <% for(var i = 0; i < cart.items.length; i++){ %>
-                <tr>
+               		<form  method="post"  >
+                 <tr>
                     <td class="cart_product">
                         <a href=""><img style="height:30px" src="<%= cart.items[i].imgUrl %>" alt=""></a>
                     </td>
                     <td class="cart_description">
-                        <h4><a href=""><%= cart.items[i].name %></a></h4>
+                        <h4><a name="name"><%= cart.items[i].name %></a></h4>
 
-                        <p>Size: <%= cart.items[i].size %></p>
+                        <p name="size">Size: <%= cart.items[i].size %></p>
                     </td>
                     <td class="cart_price">
                         <p>&#8377 <%= cart.items[i].price %></p>
                     </td>
                     <td class="cart_quantity">
-                        <div class="cart_quantity_button">
-                            <a class="cart_quantity_up"  onclick="cartTouched()"> + </a>
-                            <input class="cart_quantity_input" type="text" name="quantity"
+                        <div class="cart_quantity_button" >
+                            
+                            <button type="submit" formaction="/addQtyUpdate" class="cart-but" > + </button>
+                            
+                            <input class="cart_quantity_input" type="text" name="quantity" 
                                    value="<%= cart.items[i].quantity %>" autocomplete="off" size="2">
-                            <a class="cart_quantity_down"  onclick="cartTouched()"> - </a>
+                            
+                            <button type="submit" formaction="/minusQtyUpdate" class="cart-but"> - </button>
+                            <input style="display:none" name="itemId" value="<%= cart.items[i].itemId %>" > </input>
+                            <input style="display:none" name="variantId" value="<%= cart.items[i].variantId %>" > </input>
                         </div>
                     </td>
                     <td class="cart_total">
                         <p class="cart_total_price">&#8377 <%= cart.items[i].quantity * cart.items[i].price %></p>
                     </td>
                     <td class="cart_delete">
-                        <a class="cart_quantity_delete"  onclick="cartTouched()" ><i class="fa fa-times"></i></a>
+                        <button class="cart_quantity_delete"  type="submit" formaction="/removeItemUpdate"  ><i class="fa fa-times"></i></button>
                     </td>
                 </tr>
+                </form>
                 <% } %>
-                <form id="cartForm" onsubmit="return cartFormCheck()" >
+                <form id="cartForm"  >
                 <tr>
                     <td colspan="4">
                         <div class="shopper-informations">
@@ -93,14 +113,14 @@
                             <tr>
                                 <td>Payment Mode</td>
                                 <td style="padding-top: 10px">
-                                        <input type="radio" name="paymentMode" value="Paytm" />   Paytm<br />
-                                        <input type="radio" name="paymentMode" value="Cash" />   Cash<br />
+                                        <input type="radio" name="paymentMode" value="Paytm"  required />   Paytm<br />
+                                        <input type="radio" name="paymentMode" value="Cash"  />   Cash<br />
                                 </td>
                             </tr>
                             <tr>
                                 <td>Delivery slot</td>
                                 <td style="padding-top: 10px">
-                                    <input type="radio" name="deliverySlot" value="Morning" />   Morning<br />
+                                    <input type="radio" name="deliverySlot" value="Morning" required />   Morning<br />
                                     <input type="radio" name="deliverySlot" value="Afternoon" />   Afternoon<br />
                                     <input type="radio" name="deliverySlot" value="Evening" />   Evening<br />
                                     <input type="radio" name="deliverySlot" value="AnyTime" />   Any Time<br />
@@ -108,9 +128,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <button type="submit" formaction="/updateCart" formmethod="post" id="cUpdate" name="cUpdate" class="btn btn-primary cUpdate-btn" >Confirm Updates</button>
-                                    <button type="submit" formaction="/checkout" formmethod="get" id="resetCart" name="resetCart" class="btn btn-primary cUpdate-btn" >Reset Cart</button>
-                                    <button type="submit" formaction="/placeOrder" formmethod="post" id="pOrder" name="pOrder" class="btn btn-primary" >Place Order</button>
+                                    <button type="submit" formaction="/placeOrder" formmethod="post" id="pOrder" name="pOrder" class="btn btn-primary" >ORDER</button>
                                 </td>
                             </tr>
                         </table>
@@ -121,6 +139,8 @@
                 </tbody>
             </table>
         </div>
+        
+     <% } %>
     </div>
 </section> <!--/#cart_items-->
 
